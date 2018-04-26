@@ -1,37 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
-const CenteredDiv = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 4vh;
-    flex-direction: column;
-`
-
-const TextInput = styled.input`
-    padding: 10px;
-    border-radius: 10px;
-    width: 36vh;
-    font-size: 20px;
-    height: 15px;
-    border: solid;
-    margin: 10px;
-    border-width: 1px;
-    border-color: gray;
-`
-
-const StyledSelect = styled.select`
-    height: 36px;
-    border-radius: 10px;
-    font-size: 20px;
-    background-color: white;
-    margin: 10px;
-    width: 40vh;
-    border-color: gray;
-    padding-left: 8px;
-    color: ${ props => props.disabledOption ? "gray" : "black" }
-`
+import { StyledButton, StyledCenteredDiv, StyledSelect, StyledTextInput } from './StyledComponents'
 
 function createOptions(options){
     return Object.keys(options).map((key) => <option value={key} key={key}>{options[key]}</option>);
@@ -41,35 +10,56 @@ class NewAlert extends Component {
     constructor(props){
         super(props);
         this.state = {
-            date: new Date(), 
+            date: new Date(),
             species: "",
             condition: "",
             email: "",
-            color: ""
+            color: "",
+            street: "",
+            postalCode: "",
+            collar: "",
         };
       }
-      
+
     render() {
+        const paragraphStyle = { alignSelf: "flex-start", marginLeft: "30vw", color: "#3F3333"}
         return (
             <form>
-                <CenteredDiv>
-                    <p> File a new alert:</p>
+                <StyledCenteredDiv>
+                    <h3>File a new alert</h3>
 
-                        <StyledSelect value={this.state.species} disabledOption={this.state.species===""} onChange={ (e)=> { this.setState({species: e.target.value})}}>
+                    <p style={paragraphStyle}>Animal info</p>
+
+                    <StyledSelect value={this.state.species} disabledOption={this.state.species===""} onChange={ (e)=> { this.setState({species: e.target.value})}}>
                         <option disabled="disabled" value="">Species</option>
-                        {createOptions({ cat: 'Cat', dog: 'Dog', parrot: 'Parrot', rabbit : 'Rabbit'})}
-                        </StyledSelect>
+                        {createOptions({ cat: 'Cat', dog: 'Dog', parrot: 'Parrot', rabbit : 'Rabbit', other: 'Other'})}
+                    </StyledSelect>
 
+                    <StyledTextInput placeholder="Color" value={this.state.color} onChange={(e)=>this.setState({color: e.target.value})}/>
 
-                        <TextInput placeholder="Color" value={this.state.color} onChange={(e)=>this.setState({color: e.target.value})}/> 
-
-                        <StyledSelect value={this.state.condition} disabledOption={this.state.condition===""} onChange={ (e)=> { this.setState({condition: e.target.value})}}>
+                    <StyledSelect value={this.state.condition} disabledOption={this.state.condition===""} onChange={ (e)=> { this.setState({condition: e.target.value})}}>
                         <option disabled="disabled" value="">Condition</option>
                         {createOptions({ 0: 'Very Weak', 1: 'Weak', 2: 'Fine', 3 : 'Well'})}
-                        </StyledSelect>
+                    </StyledSelect>
 
-                        <TextInput placeholder="email" alue={this.state.email} onChange={(e)=>this.setState({email: e.target.value})}/> 
-                </CenteredDiv>
+                    <StyledSelect value={this.state.collar} disabledOption={this.state.collar===""} onChange={ (e)=> { this.setState({collar: e.target.value})}}>
+                        <option disabled="disabled" value="">Collar</option>
+                        {createOptions({ 0: 'Wears a collar', 1: 'No collar'})}
+                    </StyledSelect>
+
+                    <p style={paragraphStyle}>Location</p>
+
+                    <StyledTextInput placeholder="Street" autoComplete='street-address' value={this.state.street} onChange={(e)=>this.setState({street: e.target.value})}/>
+
+                    <StyledTextInput placeholder="Postal Code" autoComplete='postal-code' value={this.state.postalCode} onChange={(e)=>this.setState({postalCode: e.target.value})}/>
+
+                    <p style={paragraphStyle}>Receive an update</p>
+
+                    <StyledTextInput placeholder="Email" autoComplete='email' value={this.state.email} onChange={(e)=>this.setState({email: e.target.value})}/>
+
+                    <StyledButton onClick={(e)=>{e.preventDefault(); console.log(this.state)}}>Submit</StyledButton>
+
+                </StyledCenteredDiv>
             </form>
         );
     }
