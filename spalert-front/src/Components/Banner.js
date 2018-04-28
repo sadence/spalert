@@ -6,7 +6,7 @@ const StyledDiv = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 4vh;
+    padding-top: 4vh;
 `
 
 export default function Banner(props) {

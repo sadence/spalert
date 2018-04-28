@@ -3,21 +3,36 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Banner from './Components/Banner';
 import NewAlert from './Components/NewAlert';
+import ListAlerts from './Components/ListAlerts';
+import BrigadeAlerts from './Components/BrigadeAlerts';
 
 import './App.css';
 
+function Menu(){
+  return(
+    <div>
+      <ul>
+        <li><Link to="/newAlert">New Alert</Link></li>
+        <li><Link to="/alerts">Edit Alerts</Link></li>
+        <li><Link to="/brigade">Brigade Alerts</Link></li>
+      </ul>
+    </div>
+  );
+}
+
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {date: new Date()};
-  }
 
   render() {
     return (
       <div>
         <Banner/>
         <Router>
-          <Route path="/newAlert" component={NewAlert} />
+          <div>
+            <Route exact path="/" component={Menu}/>
+            <Route path="/newAlert" component={NewAlert}/>
+            <Route path="/alerts" component={ListAlerts}/>
+            <Route path="/brigade" component={BrigadeAlerts}/>
+          </div>
         </Router>
       </div>
     );

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
-import { StyledButton, StyledCenteredDiv, StyledSelect, StyledTextInput } from './StyledComponents'
-
-function createOptions(options){
-    return Object.keys(options).map((key) => <option value={key} key={key}>{options[key]}</option>);
-}
+import { StyledButton, StyledCenteredDiv, StyledSelect, StyledTextInput, StyledSubtitle, createOptions } from './StyledComponents';
 
 class NewAlert extends Component {
     constructor(props){
@@ -22,13 +18,12 @@ class NewAlert extends Component {
       }
 
     render() {
-        const paragraphStyle = { alignSelf: "flex-start", marginLeft: "30vw", color: "#3F3333"}
         return (
             <form>
                 <StyledCenteredDiv>
                     <h3>File a new alert</h3>
 
-                    <p style={paragraphStyle}>Animal info</p>
+                    <StyledSubtitle>Animal info</StyledSubtitle>
 
                     <StyledSelect value={this.state.species} disabledOption={this.state.species===""} onChange={ (e)=> { this.setState({species: e.target.value})}}>
                         <option disabled="disabled" value="">Species</option>
@@ -47,13 +42,13 @@ class NewAlert extends Component {
                         {createOptions({ 0: 'Wears a collar', 1: 'No collar'})}
                     </StyledSelect>
 
-                    <p style={paragraphStyle}>Location</p>
+                    <StyledSubtitle>Location</StyledSubtitle>
 
                     <StyledTextInput placeholder="Street" autoComplete='street-address' value={this.state.street} onChange={(e)=>this.setState({street: e.target.value})}/>
 
                     <StyledTextInput placeholder="Postal Code" autoComplete='postal-code' value={this.state.postalCode} onChange={(e)=>this.setState({postalCode: e.target.value})}/>
 
-                    <p style={paragraphStyle}>Receive an update</p>
+                    <StyledSubtitle>Receive an update</StyledSubtitle>
 
                     <StyledTextInput placeholder="Email" autoComplete='email' value={this.state.email} onChange={(e)=>this.setState({email: e.target.value})}/>
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React from 'react';
 
 const StyledCenteredDiv = styled.div`
     display: flex;
@@ -39,4 +40,26 @@ const StyledButton = styled.button`
     margin-top: 20px;
     margin-bottom: 20px;
 `
-export { StyledButton, StyledCenteredDiv, StyledSelect, StyledTextInput }
+
+const StyledSubtitle = styled.p`
+    align-self: flex-start;
+    margin-left: 30vw;
+    color: #3F3333;
+`
+
+const AlertButton = styled.button`
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100px;
+    color: black;
+    background-color: white;
+`
+
+function createOptions(options){
+    return Object.keys(options).map((key) => <option value={key} key={key}>{options[key]}</option>);
+}
+
+export { StyledButton, StyledCenteredDiv, StyledSelect, StyledTextInput, StyledSubtitle, AlertButton, createOptions }
