@@ -7,6 +7,7 @@ const StyledDiv = styled.div`
     justify-content: center;
     align-items: center;
     padding-top: 4vh;
+    color: #9e896f;
 `
 
 export default function Banner(props) {

@@ -54,7 +54,7 @@ const AlertButton = styled.button`
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100px;
-    color: black;
+    color: #545454;
     background-color: white;
 `
 
