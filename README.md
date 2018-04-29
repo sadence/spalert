@@ -18,6 +18,7 @@ Then, for both the front and the back do
 `npm start`.
 
 You may begin filing a new alert then checking the alert list.
+Go to http://localhost:3000.
 
 ## Technical Choices
 
