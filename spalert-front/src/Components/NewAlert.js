@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { StyledButton, StyledCenteredDiv, StyledSelect, StyledTextInput, StyledSubtitle, createOptions } from './StyledComponents';
 
+
 class NewAlert extends Component {
     constructor(props){
         super(props);

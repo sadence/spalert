@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 const StyledDiv = styled.div`
     display: grid;
@@ -13,7 +14,7 @@ const StyledElement = styled.div`
 const AlertDiv = styled.div`
     margin:auto;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     background-color: snow;
     padding-top: 20px;
     width: 80vw;
@@ -30,7 +31,7 @@ class previewAlert extends Component {
         return (
             <AlertDiv>
                 <StyledDiv>
-                    <StyledElement style={{ gridColumn: "span 2" }}>{this.props.date.toLocaleString()}</StyledElement>
+                    <StyledElement style={{ gridColumn: "span 2" }}>{moment(this.props.date).format('MM DD h:mm')}</StyledElement>
                     <StyledElement style={{ gridColumn: "span 2" }}>{this.props.street} {this.props.postalCode}</StyledElement>
                     <StyledElement>{this.props.collar ? "Collar" : "No Collar"}</StyledElement>
                     <StyledElement>{this.props.color}</StyledElement>

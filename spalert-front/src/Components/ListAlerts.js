@@ -2,13 +2,16 @@ import React, { Component } from "react";
 
 import { StyledSubtitle, AlertButton, StyledSelect } from "./StyledComponents";
 import PreviewAlert from "./PreviewAlert";
+import { getData, postData } from "../utils";
+
+import { apiURL } from "../Config";
 
 class ListAlerts extends Component {
   constructor(props) {
     super(props);
     const data = [
       {
-        id: 0,
+        _id: "0",
         date: new Date(),
         species: "Dog",
         condition: 2,
@@ -21,7 +24,7 @@ class ListAlerts extends Component {
         brigade: ""
       },
       {
-        id: 1,
+        _id: "1",
         date: new Date(),
         species: "Dog",
         condition: 2,
@@ -32,31 +35,51 @@ class ListAlerts extends Component {
         collar: 0,
         status: "Assigned",
         brigade: "75015"
-      },
-      {
-        id: 2,
-        date: new Date(),
-        species: "Dog",
-        condition: 2,
-        email: "michelle@example.com",
-        color: "Blue",
-        street: "Letellier",
-        postalCode: "75015",
-        collar: 0,
-        status: "Assigned",
-        brigade: ""
       }
     ];
-    this.state = { data: data, brigade: "", expanded: null };
+    this.state = {
+      alerts: data,
+      brigade: "",
+      expanded: null,
+      brigades: [
+        {
+          _id: "0",
+          name: "75015",
+          email: "75015@example.com"
+        }
+      ]
+    };
   }
 
   updateBrigade(idx) {
     return function(prevState) {
-      prevState.data[idx].brigade = this.state.brigade;
+      prevState.alerts[idx].brigade = this.state.brigade;
       prevState.expanded = false;
       prevState.brigade = "";
-      return { data: prevState.data };
+      return { alerts: prevState.alerts };
     };
+  }
+
+  updateBrigadeRequest(idx, brigade_id) {
+    let alert = this.state.alerts[idx];
+    postData(`${apiURL}/alerts/${alert._id}`, { brigade: brigade_id })
+    .catch(console.log);
+  }
+
+  componentDidMount() {
+    getData(`${apiURL}/alerts`)
+      .then(arr => {
+        console.log(arr);
+        this.setState({ alerts: arr });
+      })
+      .catch(console.log);
+
+    getData(`${apiURL}/brigades`)
+      .then(arr => {
+        console.log(arr);
+        this.setState({ brigades: arr });
+      })
+      .catch(console.log);
   }
 
   render() {
@@ -64,8 +87,8 @@ class ListAlerts extends Component {
       <div>
         <StyledSubtitle>Alerts: </StyledSubtitle>
         <div>
-          {this.state.data.map((data, idx) => (
-            <PreviewAlert {...data} key={data.id}>
+          {this.state.alerts.map((data, idx) => (
+            <PreviewAlert {...data} key={data._id}>
               <div style={{ display: "flex", justifyContent: "space-around" }}>
                 <AlertButton
                   onClick={() => {
@@ -89,11 +112,17 @@ class ListAlerts extends Component {
                     disabledOption={this.state.brigade === ""}
                     onChange={e => this.setState({ brigade: e.target.value })}
                   >
-                    <option>Brigade</option>
-                    <option>Brigade2</option>
+                    <option disabled="disabled" value="">
+                      Brigade
+                    </option>
+                    {this.state.brigades.map(brigade => {
+                      return <option key={brigade._id}>{brigade.name}</option>;
+                    })}
                   </StyledSelect>
                   <AlertButton
-                    onClick={() => this.setState(this.updateBrigade(idx))}
+                    onClick={() => {
+                      this.setState(this.updateBrigade(idx));
+                    }}
                   >
                     Submit
                   </AlertButton>
