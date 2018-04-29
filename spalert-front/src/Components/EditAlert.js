@@ -25,7 +25,8 @@ class EditAlert extends Component {
         color: "",
         addressStreet: "",
         postalCode: "",
-        collar: ""
+        collar: "",
+        status: ""
       },
       _id: this.props.match.params.id
     };
@@ -126,6 +127,18 @@ class EditAlert extends Component {
             value={this.state.alert.email}
             onChange={e => this.updateAlertState("email", e.target.value)}
           />
+
+
+          <StyledSelect
+            value={this.state.alert.status}
+            disabledOption={this.state.alert.status === ""}
+            onChange={e => this.updateAlertState("status", e.target.value)}
+          >
+            <option disabled="disabled" value="">
+              Status
+            </option>
+            {createOptions({ assigned: "Assigned", unassigned: "Unassigned", success: "Sucess",  failed: "Failed", cancelled: "Cancelled",  })}
+          </StyledSelect>
 
           <StyledButton
             onClick={e => {

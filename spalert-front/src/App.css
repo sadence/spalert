@@ -5,3 +5,8 @@ select {
 input {
     -webkit-appearance: none;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}

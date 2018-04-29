@@ -20,6 +20,7 @@ const AlertDiv = styled.div`
     width: 80vw;
     border-radius: 10px;
     background-color: #e5eef1;
+    color: #444444;
 `
 
 const conditions = { 0: "Very Weak", 1: "Weak", 2: "Fine", 3: "Well" };
@@ -35,10 +36,10 @@ class previewAlert extends Component {
                 <StyledDiv>
                     <StyledElement style={{ gridColumn: "span 2" }}>{moment(this.props.date).format('YYYY/MM/DD hh:mm')}</StyledElement>
                     <StyledElement style={{ gridColumn: "span 2" }}>{this.props.addressStreet} {this.props.postalCode}</StyledElement>
-                    <StyledElement>{this.props.collar ? "Collar" : "No Collar"}</StyledElement>
-                    <StyledElement>{this.props.color}</StyledElement>
                     <StyledElement>{this.props.species}</StyledElement>
+                    <StyledElement>{this.props.collar ? "Collar" : "No Collar"}</StyledElement>
                     <StyledElement>{this.props.status}</StyledElement>
+                    <StyledElement>{this.props.color}</StyledElement>
                     <StyledElement>{this.props.brigade ? this.props.brigade.name : ""}</StyledElement>
                     <StyledElement>{conditions[this.props.condition]}</StyledElement>
                 </StyledDiv>

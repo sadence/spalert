@@ -6,6 +6,9 @@ import NewAlert from './Components/NewAlert';
 import Edit from './Components/EditAlert';
 import ListAlerts from './Components/ListAlerts';
 import BrigadeAlerts from './Components/BrigadeAlerts';
+import NewBrigade from './Components/NewBrigade';
+import Success from './Components/Sucess';
+import HomeMenu from './Components/HomeMenu';
 
 import './App.css';
 import EditAlert from './Components/EditAlert';
@@ -13,17 +16,9 @@ import EditAlert from './Components/EditAlert';
 function Menu(){
   return(
     <div>
-      <ul>
-        <li><Link to="/newAlert">New Alert</Link></li>
-        <li><Link to="/alerts">Edit Alerts</Link></li>
-        <li><Link to="/brigade">Brigade Alerts</Link></li>
-      </ul>
+      <HomeMenu></HomeMenu>
     </div>
   );
-}
-
-function Success() {
-  return <h2>Your alert has been submitted. Thank you!</h2>
 }
 
 class App extends Component {
@@ -36,6 +31,7 @@ class App extends Component {
           <div>
             <Route exact path="/" component={Menu}/>
             <Route path="/newAlert" component={NewAlert}/>
+            <Route path="/newBrigade" component={NewBrigade}/>
             <Route path="/alerts" component={ListAlerts}/>
             <Route path="/brigade" component={BrigadeAlerts}/>
             <Route path="/success" component={Success}/>

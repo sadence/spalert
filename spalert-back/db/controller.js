@@ -33,7 +33,7 @@ db.createNewAlert = ({
     addressStreet: addressStreet,
     postalCode: postalCode,
     condition: condition,
-    status: "Unassigned",
+    status: "unassigned",
     email: email
   });
 
@@ -69,7 +69,7 @@ db.createNewBrigade = ({
 db.updateAlert = (id, obj) => {
   return models.Alert.findById(id)
     .then(alert => {
-      if(obj.brigade){
+      if(obj.brigade && !obj.status){
         obj = Object.assign(obj, { status: "assigned"})
       }
       alert.set(obj);

@@ -59,7 +59,7 @@ class ListAlerts extends Component {
   updateBrigades() {
     getData(`${apiURL}/alerts`)
       .then(arr => {
-        this.setState({ alerts: arr });
+        this.setState({ alerts: arr, expanded: null });
       })
       .catch(console.log);
     }
@@ -88,7 +88,6 @@ class ListAlerts extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <StyledSubtitle>Alerts: </StyledSubtitle>
