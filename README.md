@@ -4,8 +4,15 @@ This is a coding exercise for recruitment purposes and also a way of refreshing 
 
 ## Setup
 
-To run the project, clone it.
-Go to `spalert-back` and type `docker-compose up` to up the docker for the database (you must have Docker and docker-compose installed).
+To run the project, clone it; install dependencies :
+```
+cd spalert-front
+npm install
+cd spalert-back
+npm install
+```
+
+Then, type `docker-compose up` in the root to up the docker for the database (you must have Docker and docker-compose installed).
 
 Then, for both the front and the back do
 `npm start`.
