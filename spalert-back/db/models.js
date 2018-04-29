@@ -12,7 +12,7 @@ var alertSchema = mongoose.Schema({
   collar: Boolean,
   addressStreet: String,
   postalCode: Number,
-  animalStatus: Number,
+  condition: Number,
   status: String,
   date: { type: Date, default: Date.now },
   email: String,

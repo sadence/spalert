@@ -23,8 +23,7 @@ db.createNewAlert = ({
   collar,
   addressStreet,
   postalCode,
-  animalStatus,
-  status,
+  condition,
   email
 }) => {
   const alert = new models.Alert({
@@ -33,8 +32,8 @@ db.createNewAlert = ({
     collar: collar,
     addressStreet: addressStreet,
     postalCode: postalCode,
-    animalStatus: animalStatus,
-    status: status,
+    condition: condition,
+    status: "Unassigned",
     email: email
   });
 
@@ -70,6 +69,9 @@ db.createNewBrigade = ({
 db.updateAlert = (id, obj) => {
   return models.Alert.findById(id)
     .then(alert => {
+      if(obj.brigade){
+        obj = Object.assign(obj, { status: "assigned"})
+      }
       alert.set(obj);
       return alert.save();
     })
@@ -86,7 +88,7 @@ db.findAlert = (id) => {
   };
 
 db.allAlerts = () => {
-    return models.Alert.find()
+    return models.Alert.find().populate('brigade')
     .catch(err => console.log("Error:" + err));
 }
 

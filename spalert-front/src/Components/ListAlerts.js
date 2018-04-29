@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import  { withRouter, Redirect } from 'react-router-dom';
 
 import { StyledSubtitle, AlertButton, StyledSelect } from "./StyledComponents";
 import PreviewAlert from "./PreviewAlert";
@@ -21,7 +22,7 @@ class ListAlerts extends Component {
         postalCode: "75015",
         collar: 0,
         status: "Assigned",
-        brigade: ""
+        brigade: {}
       },
       {
         _id: "1",
@@ -34,7 +35,11 @@ class ListAlerts extends Component {
         postalCode: "75015",
         collar: 0,
         status: "Assigned",
-        brigade: "75015"
+        brigade: {
+          _id: "0",
+          name: "75015",
+          email: "75015@example.com"
+        }
       }
     ];
     this.state = {
@@ -51,38 +56,39 @@ class ListAlerts extends Component {
     };
   }
 
-  updateBrigade(idx) {
-    return function(prevState) {
-      prevState.alerts[idx].brigade = this.state.brigade;
-      prevState.expanded = false;
-      prevState.brigade = "";
-      return { alerts: prevState.alerts };
-    };
-  }
+  updateBrigades() {
+    getData(`${apiURL}/alerts`)
+      .then(arr => {
+        this.setState({ alerts: arr });
+      })
+      .catch(console.log);
+    }
 
-  updateBrigadeRequest(idx, brigade_id) {
-    let alert = this.state.alerts[idx];
-    postData(`${apiURL}/alerts/${alert._id}`, { brigade: brigade_id })
+  updateBrigadeRequest(alert_idx, brigade_id) {
+    let alert = this.state.alerts[alert_idx];
+    postData(`${apiURL}/alerts/${alert._id}`, {
+      alert: { brigade: brigade_id }
+    })
+    .then(()=>this.updateBrigades())
     .catch(console.log);
   }
 
   componentDidMount() {
     getData(`${apiURL}/alerts`)
       .then(arr => {
-        console.log(arr);
         this.setState({ alerts: arr });
       })
       .catch(console.log);
 
     getData(`${apiURL}/brigades`)
       .then(arr => {
-        console.log(arr);
         this.setState({ brigades: arr });
       })
       .catch(console.log);
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <StyledSubtitle>Alerts: </StyledSubtitle>
@@ -101,7 +107,7 @@ class ListAlerts extends Component {
                 >
                   Assign
                 </AlertButton>
-                <AlertButton>Edit</AlertButton>
+                <AlertButton onClick={()=> this.props.history.push(`/edit/${data._id}`) }>Edit</AlertButton>
               </div>
               {this.state.expanded === idx ? (
                 <div
@@ -115,13 +121,20 @@ class ListAlerts extends Component {
                     <option disabled="disabled" value="">
                       Brigade
                     </option>
-                    {this.state.brigades.map(brigade => {
-                      return <option key={brigade._id}>{brigade.name}</option>;
+                    {this.state.brigades.map((brigade, brigade_idx) => {
+                      return (
+                        <option key={brigade._id} value={brigade_idx}>
+                          {brigade.name}
+                        </option>
+                      );
                     })}
                   </StyledSelect>
                   <AlertButton
                     onClick={() => {
-                      this.setState(this.updateBrigade(idx));
+                      this.updateBrigadeRequest(
+                        idx,
+                        this.state.brigades[this.state.brigade]._id
+                      );
                     }}
                   >
                     Submit
@@ -136,4 +149,4 @@ class ListAlerts extends Component {
   }
 }
 
-export default ListAlerts;
+export default withRouter(ListAlerts);

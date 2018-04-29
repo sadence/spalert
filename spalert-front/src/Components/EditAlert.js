@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import  { withRouter, Redirect } from 'react-router-dom';
 
 import {
   StyledButton,
@@ -9,14 +9,16 @@ import {
   StyledSubtitle,
   createOptions
 } from "./StyledComponents";
-import { putData } from "../utils";
+import { postData, getData } from "../utils";
 import { apiURL } from "../Config";
 
-class NewAlert extends Component {
+
+class EditAlert extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      alert: {
+      alert : {
+        _id: 0,
         species: "",
         condition: "",
         email: "",
@@ -24,22 +26,26 @@ class NewAlert extends Component {
         addressStreet: "",
         postalCode: "",
         collar: ""
-      }
+      },
+      _id: this.props.match.params.id
     };
+    console.log(this);
   }
 
-  submitNewAlert() {
-    console.log(this.state);
-    putData(`${apiURL}/alerts`, { alert: this.state.alert }).then(() =>
-      this.props.history.push("/success")
-    );
+  componentDidMount(){
+    getData(`${apiURL}/alerts/${this.state._id}`)
+    .then((alert)=>this.setState(Object.assign({}, this.state, {alert})))
+    .catch(console.log);
+  }
+
+  submitChanges() {
+      console.log(this.state);
+      postData(`${apiURL}/alerts/${this.state.alert._id}`, {alert: this.state.alert})
+      .then(()=>this.props.history.push('/alerts'));
   }
 
   updateAlertState(attr, value){
-    this.setState((prevState)=> {
-        const alert = Object.assign({}, prevState.alert, {[attr]: value});
-        return {alert};
-    });
+    this.setState(({alert})=> Object.assign(alert, {[attr]: value}));
   }
 
   render() {
@@ -124,7 +130,7 @@ class NewAlert extends Component {
           <StyledButton
             onClick={e => {
               e.preventDefault();
-              this.submitNewAlert();
+              this.submitChanges();
             }}
           >
             Submit
@@ -135,4 +141,4 @@ class NewAlert extends Component {
   }
 }
 
-export default withRouter(NewAlert);
+export default withRouter(EditAlert);
