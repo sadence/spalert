@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Banner from './Components/Banner';
 import NewAlert from './Components/NewAlert';
-import Edit from './Components/EditAlert';
+import EditAlert from './Components/EditAlert';
 import ListAlerts from './Components/ListAlerts';
 import BrigadeAlerts from './Components/BrigadeAlerts';
 import NewBrigade from './Components/NewBrigade';
@@ -11,7 +11,6 @@ import Success from './Components/Sucess';
 import HomeMenu from './Components/HomeMenu';
 
 import './App.css';
-import EditAlert from './Components/EditAlert';
 
 function Menu(){
   return(

@@ -29,7 +29,6 @@ class NewAlert extends Component {
   }
 
   submitNewAlert() {
-    console.log(this.state);
     putData(`${apiURL}/alerts`, { alert: this.state.alert }).then(() =>
       this.props.history.push("/success")
     );
@@ -43,7 +42,6 @@ class NewAlert extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <form>
         <StyledCenteredDiv>

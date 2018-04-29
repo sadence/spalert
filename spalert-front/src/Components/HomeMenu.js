@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import {StyledCenteredDiv, StyledButton} from './StyledComponents';
+import {StyledCenteredDiv} from './StyledComponents';
 
 const StyledMenuItem = styled.div`
     font-size: 20px;

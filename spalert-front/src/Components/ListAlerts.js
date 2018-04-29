@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import  { withRouter, Redirect } from 'react-router-dom';
+import  { withRouter } from 'react-router-dom';
 
 import { StyledSubtitle, AlertButton, StyledSelect } from "./StyledComponents";
 import PreviewAlert from "./PreviewAlert";
@@ -10,40 +10,9 @@ import { apiURL } from "../Config";
 class ListAlerts extends Component {
   constructor(props) {
     super(props);
-    const data = [
-      {
-        _id: "0",
-        date: new Date(),
-        species: "Dog",
-        condition: 2,
-        email: "michelle@example.com",
-        color: "Blue",
-        street: "Letellier",
-        postalCode: "75015",
-        collar: 0,
-        status: "Assigned",
-        brigade: {}
-      },
-      {
-        _id: "1",
-        date: new Date(),
-        species: "Dog",
-        condition: 2,
-        email: "michelle@example.com",
-        color: "Blue",
-        street: "Letellier",
-        postalCode: "75015",
-        collar: 0,
-        status: "Assigned",
-        brigade: {
-          _id: "0",
-          name: "75015",
-          email: "75015@example.com"
-        }
-      }
-    ];
+
     this.state = {
-      alerts: data,
+      alerts: [],
       brigade: "",
       expanded: null,
       brigades: [

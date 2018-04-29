@@ -1,6 +1,4 @@
 import React from "react";
-import DogImage from "../Images/Dog.svg";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 

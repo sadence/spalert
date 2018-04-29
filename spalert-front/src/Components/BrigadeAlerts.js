@@ -8,43 +8,49 @@ class BrigadeAlerts extends Component {
     super(props);
     const data = [
       {
-        id: 0,
+        _id: 0,
         date: new Date(),
         species: "Dog",
         condition: 2,
         email: "michelle@example.com",
         color: "Blue",
-        street: "Letellier",
+        adressStreet: "Letellier",
         postalCode: "75015",
         collar: 0,
         status: "Assigned",
-        brigade: "75015"
+        brigade: {
+          name: "75015"
+        }
       },
       {
-        id: 1,
+        _id: 1,
         date: new Date(),
         species: "Dog",
         condition: 2,
         email: "michelle@example.com",
         color: "Blue",
-        street: "Letellier",
+        adressStreet: "Letellier",
         postalCode: "75015",
         collar: 0,
         status: "Assigned",
-        brigade: "75015"
+        brigade: {
+          name: "75015"
+        }
       },
       {
-        id: 2,
+        _id: 2,
         date: new Date(),
         species: "Dog",
         condition: 2,
         email: "michelle@example.com",
         color: "Blue",
-        street: "Letellier",
+        adressStreet: "Letellier",
         postalCode: "75015",
         collar: 0,
         status: "Assigned",
-        brigade: "75015"
+        brigade: {
+          name: "75015"
+        }
       }
     ];
     this.state = { data: data };
@@ -55,7 +61,7 @@ class BrigadeAlerts extends Component {
         <StyledSubtitle>Alerts: </StyledSubtitle>
         <div>
           {this.state.data.map(data => (
-            <PreviewAlert {...data}>
+            <PreviewAlert {...data} key={data._id}>
               <div style={{ display: "flex", justifyContent: "space-around" }}>
                 <AlertButton>Saved</AlertButton>
                 <AlertButton>Abandonned</AlertButton>

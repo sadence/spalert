@@ -4,10 +4,7 @@ import { withRouter } from "react-router-dom";
 import {
   StyledButton,
   StyledCenteredDiv,
-  StyledSelect,
-  StyledTextInput,
-  StyledSubtitle,
-  createOptions
+  StyledTextInput
 } from "./StyledComponents";
 import { putData } from "../utils";
 import { apiURL } from "../Config";
@@ -29,10 +26,10 @@ class NewBrigade extends Component {
     );
   }
 
-  updateBrigadeState(attr, value){
-    this.setState((prevState)=> {
-        const brigade = Object.assign({}, prevState.brigade, {[attr]: value});
-        return {brigade};
+  updateBrigadeState(attr, value) {
+    this.setState(prevState => {
+      const brigade = Object.assign({}, prevState.brigade, { [attr]: value });
+      return { brigade };
     });
   }
 
