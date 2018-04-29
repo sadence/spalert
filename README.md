@@ -4,20 +4,18 @@ This is a coding exercise for recruitment purposes and also a way of refreshing 
 
 ## Setup
 
+You must have Docker and docker-compose installed.
+
 To run the project, clone it; install dependencies :
+
 ```
-cd spalert-front
-npm install
-cd spalert-back
-npm install
+docker-compose run --no-deps --rm node-back npm install
+docker-compose run --no-deps --rm node-front npm install
 ```
 
-Then, type `docker-compose up` in the root to up the docker for the database (you must have Docker and docker-compose installed).
+Then, type `docker-compose up` in the root folder.
 
-Then, for both the front and the back do
-`npm start`.
-
-You may begin filing a new alert then checking the alert list.
+You may begin filing a new alert, a new brigade then checking the alert list.
 Go to http://localhost:3000.
 
 ## Technical Choices
