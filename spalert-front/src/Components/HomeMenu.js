@@ -2,9 +2,21 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { StyledCenteredDiv } from "./StyledComponents";
 import { getData } from "../utils";
 import { apiURL } from "../Config";
+
+const StyledDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 4vh;
+    flex-direction: column;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    background-color: #e5eef1;
+    border-radius: 10px;
+    padding: 5vh;
+`
 
 const StyledMenuItem = styled.div`
   font-size: 20px;
@@ -35,7 +47,7 @@ class HomeMenu extends Component {
   render() {
     console.log(this.state);
     return (
-      <StyledCenteredDiv>
+      <StyledDiv>
         <StyledMenuItem>
           <Link to="/newAlert">New Alert</Link>
         </StyledMenuItem>
@@ -57,7 +69,7 @@ class HomeMenu extends Component {
         <StyledMenuItem>
           <Link to="/newBrigade">New Brigade</Link>
         </StyledMenuItem>
-      </StyledCenteredDiv>
+      </StyledDiv>
     );
   }
 }
