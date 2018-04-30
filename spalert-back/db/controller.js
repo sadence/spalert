@@ -82,7 +82,7 @@ db.updateAlert = (id, obj) => {
     .catch(err => console.log("Error:" + err));
 };
 
-db.findAlert = (id) => {
+db.findAlertById = (id) => {
     return models.Alert.findById(id)
       .catch(err => console.log("Error:" + err));
   };
@@ -95,6 +95,17 @@ db.allAlerts = () => {
 db.allBrigades = () => {
     return models.Brigade.find()
     .catch(err => console.log("Error:" + err));
+}
+
+db.findBrigadeById = (id) => {
+  return models.Brigade.findById(id)
+    .catch(err => console.log("Error:" + err));
+};
+
+db.findBrigadeAlerts = (brigade_id) => {
+  console.log(brigade_id);
+  return models.Alert.find({ brigade: brigade_id})
+  .catch(err => console.log("Error:" + err));
 }
 
 module.exports = db;

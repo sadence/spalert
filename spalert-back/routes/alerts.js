@@ -29,7 +29,7 @@ router.post("/:id", function(req, res) {
 
 router.get("/:id", function(req, res) {
   db
-    .findAlert(req.params.id)
+    .findAlertById(req.params.id)
     .then(alert => res.send(alert))
     .catch(console.log);
 });

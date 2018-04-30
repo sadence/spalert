@@ -32,7 +32,7 @@ class App extends Component {
             <Route path="/newAlert" component={NewAlert}/>
             <Route path="/newBrigade" component={NewBrigade}/>
             <Route path="/alerts" component={ListAlerts}/>
-            <Route path="/brigade" component={BrigadeAlerts}/>
+            <Route path="/brigades/:id" component={BrigadeAlerts}/>
             <Route path="/success" component={Success}/>
             <Route path="/edit/:id" component={EditAlert}/>
           </div>
