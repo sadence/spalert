@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import  { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 import {
   StyledButton,
@@ -12,12 +12,11 @@ import {
 import { postData, getData } from "../utils";
 import { apiURL } from "../Config";
 
-
 class EditAlert extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      alert : {
+      alert: {
         _id: 0,
         species: "",
         condition: "",
@@ -33,20 +32,21 @@ class EditAlert extends Component {
     console.log(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     getData(`${apiURL}/alerts/${this.state._id}`)
-    .then((alert)=>this.setState(Object.assign({}, this.state, {alert})))
-    .catch(console.log);
+      .then(alert => this.setState(Object.assign({}, this.state, { alert })))
+      .catch(console.log);
   }
 
   submitChanges() {
-      console.log(this.state);
-      postData(`${apiURL}/alerts/${this.state.alert._id}`, {alert: this.state.alert})
-      .then(()=>this.props.history.push('/alerts'));
+    console.log(this.state);
+    postData(`${apiURL}/alerts/${this.state.alert._id}`, {
+      alert: this.state.alert
+    }).then(() => this.props.history.push("/alerts"));
   }
 
-  updateAlertState(attr, value){
-    this.setState(({alert})=> Object.assign(alert, {[attr]: value}));
+  updateAlertState(attr, value) {
+    this.setState(({ alert }) => Object.assign(alert, { [attr]: value }));
   }
 
   render() {
@@ -109,7 +109,9 @@ class EditAlert extends Component {
             placeholder="Street"
             autoComplete="street-address"
             value={this.state.alert.addressStreet}
-            onChange={e => this.updateAlertState("addressStreet", e.target.value)}
+            onChange={e =>
+              this.updateAlertState("addressStreet", e.target.value)
+            }
           />
 
           <StyledTextInput
@@ -128,7 +130,6 @@ class EditAlert extends Component {
             onChange={e => this.updateAlertState("email", e.target.value)}
           />
 
-
           <StyledSelect
             value={this.state.alert.status}
             disabledOption={this.state.alert.status === ""}
@@ -137,7 +138,13 @@ class EditAlert extends Component {
             <option disabled="disabled" value="">
               Status
             </option>
-            {createOptions({ assigned: "Assigned", unassigned: "Unassigned", success: "Sucess",  failed: "Failed", cancelled: "Cancelled",  })}
+            {createOptions({
+              assigned: "Assigned",
+              unassigned: "Unassigned",
+              success: "Success",
+              failed: "Failed",
+              cancelled: "Cancelled"
+            })}
           </StyledSelect>
 
           <StyledButton

@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import  { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
-import { StyledSubtitle, AlertButton, StyledSelect } from "./StyledComponents";
+import {
+  StyledSubtitle,
+  AlertButton,
+  StyledSelect,
+  createOptions,
+  StyledCenteredDiv
+} from "./StyledComponents";
 import PreviewAlert from "./PreviewAlert";
 import { getData, postData } from "../utils";
 
@@ -12,7 +18,9 @@ class ListAlerts extends Component {
     super(props);
 
     this.state = {
+      filter: "",
       alerts: [],
+      filteredAlerts: [],
       brigade: "",
       expanded: null,
       brigades: [
@@ -25,43 +33,80 @@ class ListAlerts extends Component {
     };
   }
 
-  updateBrigades() {
+  filterAlerts(status, arr) {
+    if (status === "") {
+      return arr || this.state.alerts;
+    }
+    const filteredAlerts = this.state.alerts.filter(
+      alert => alert.status === status
+    );
+    return filteredAlerts;
+  }
+
+  updateAlerts() {
     getData(`${apiURL}/alerts`)
       .then(arr => {
-        this.setState({ alerts: arr, expanded: null });
+        this.setState({
+          alerts: arr,
+          expanded: null,
+          filteredAlerts: this.filterAlerts(this.state.filter, arr)
+        });
       })
       .catch(console.log);
-    }
+  }
 
   updateBrigadeRequest(alert_idx, brigade_id) {
     let alert = this.state.alerts[alert_idx];
     postData(`${apiURL}/alerts/${alert._id}`, {
       alert: { brigade: brigade_id }
     })
-    .then(()=>this.updateBrigades())
-    .catch(console.log);
+      .then(() => this.updateAlerts())
+      .catch(console.log);
   }
 
   componentDidMount() {
-    getData(`${apiURL}/alerts`)
-      .then(arr => {
-        this.setState({ alerts: arr });
-      })
-      .catch(console.log);
-
-    getData(`${apiURL}/brigades`)
-      .then(arr => {
-        this.setState({ brigades: arr });
-      })
+    Promise.all([getData(`${apiURL}/alerts`), getData(`${apiURL}/brigades`)])
+      .then(arr =>
+        this.setState({
+          alerts: arr[0],
+          brigades: arr[1],
+          filteredAlerts: this.filterAlerts(this.state.filter, arr[0])
+        })
+      )
       .catch(console.log);
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <StyledSubtitle>Alerts: </StyledSubtitle>
+        <StyledCenteredDiv>
+          <StyledSelect
+            value={this.state.filter}
+            disabledOption={this.state.filter === ""}
+            onChange={e =>
+              this.setState({
+                filteredAlerts: this.filterAlerts(e.target.value),
+                filter: e.target.value
+              })
+            }
+          >
+            <option disabled="disabled" value="">
+              Filter
+            </option>
+            {createOptions({
+              assigned: "Assigned",
+              unassigned: "Unassigned",
+              success: "Success",
+              failure: "Failure",
+              cancelled: "Cancelled"
+            })}
+          </StyledSelect>
+        </StyledCenteredDiv>
         <div>
-          {this.state.alerts.map((data, idx) => (
+          {this.state.filteredAlerts.length === 0 ? <StyledSubtitle>No alerts to show</StyledSubtitle> : null }
+          {this.state.filteredAlerts.map((data, idx) => (
             <PreviewAlert {...data} key={data._id}>
               <div style={{ display: "flex", justifyContent: "space-around" }}>
                 <AlertButton
@@ -75,7 +120,11 @@ class ListAlerts extends Component {
                 >
                   Assign
                 </AlertButton>
-                <AlertButton onClick={()=> this.props.history.push(`/edit/${data._id}`) }>Edit</AlertButton>
+                <AlertButton
+                  onClick={() => this.props.history.push(`/edit/${data._id}`)}
+                >
+                  Edit
+                </AlertButton>
               </div>
               {this.state.expanded === idx ? (
                 <div
@@ -108,7 +157,7 @@ class ListAlerts extends Component {
                     Submit
                   </AlertButton>
                 </div>
-              ) : null}
+              ) : null }
             </PreviewAlert>
           ))}
         </div>

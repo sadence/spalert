@@ -38,7 +38,7 @@ class BrigadeAlerts extends Component {
           {this.state.alerts.map(data => (
             <PreviewAlert {...data} key={data._id}>
               <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <AlertButton onClick={()=>this.submitResult("sucess", data._id)}>Saved</AlertButton>
+                <AlertButton onClick={()=>this.submitResult("success", data._id)}>Saved</AlertButton>
                 <AlertButton onClick={()=>this.submitResult("failure", data._id)}>Abandonned</AlertButton>
               </div>
             </PreviewAlert>
