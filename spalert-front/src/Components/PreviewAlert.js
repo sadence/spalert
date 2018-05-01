@@ -39,6 +39,7 @@ class previewAlert extends Component {
                     <StyledElement>{this.props.species}</StyledElement>
                     <StyledElement>{this.props.collar ? "Collar" : "No Collar"}</StyledElement>
                     <StyledElement>{this.props.status}</StyledElement>
+                    <StyledElement>{this.props.email}</StyledElement>
                     <StyledElement>{this.props.color}</StyledElement>
                     <StyledElement>{this.props.brigade ? this.props.brigade.name : ""}</StyledElement>
                     <StyledElement>{conditions[this.props.condition]}</StyledElement>

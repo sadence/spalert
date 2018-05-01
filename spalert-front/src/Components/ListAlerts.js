@@ -92,7 +92,7 @@ class ListAlerts extends Component {
               })
             }
           >
-            <option disabled="disabled" value="">
+            <option value="">
               Filter
             </option>
             {createOptions({

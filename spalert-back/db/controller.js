@@ -69,7 +69,6 @@ db.createNewBrigade = ({
 db.updateAlert = (id, obj) => {
   return models.Alert.findById(id)
     .then(alert => {
-      console.log(obj);
       if(obj.brigade && !obj.status){
         obj = Object.assign(obj, { status: "assigned"})
       }

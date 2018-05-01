@@ -17,16 +17,17 @@ class BrigadeAlerts extends Component {
     this.fetchAlerts();
   }
 
-  fetchAlerts(){
+  fetchAlerts() {
     getData(`${apiURL}/brigades/${this.state._id}`)
-    .then(({ alerts, brigade }) => this.setState({ brigade, alerts }))
-    .catch(console.log);
+      .then(({ alerts, brigade }) => this.setState({ brigade, alerts }))
+      .catch(console.log);
   }
 
-  submitResult(status, alert_id){
-    postData(`${apiURL}/alerts/${alert_id}`, { alert: {status}}).then(
-      () => this.fetchAlerts()
-    );
+  submitResult(status, alert_id) {
+    postData(`${apiURL}/alerts/${alert_id}`, {
+      alert: { status },
+      brigade_done: true
+    }).then(() => this.fetchAlerts());
   }
 
   render() {
@@ -38,8 +39,16 @@ class BrigadeAlerts extends Component {
           {this.state.alerts.map(data => (
             <PreviewAlert {...data} key={data._id}>
               <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <AlertButton onClick={()=>this.submitResult("success", data._id)}>Saved</AlertButton>
-                <AlertButton onClick={()=>this.submitResult("failure", data._id)}>Abandonned</AlertButton>
+                <AlertButton
+                  onClick={() => this.submitResult("success", data._id)}
+                >
+                  Saved
+                </AlertButton>
+                <AlertButton
+                  onClick={() => this.submitResult("failure", data._id)}
+                >
+                  Abandonned
+                </AlertButton>
               </div>
             </PreviewAlert>
           ))}

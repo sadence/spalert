@@ -142,7 +142,7 @@ class EditAlert extends Component {
               assigned: "Assigned",
               unassigned: "Unassigned",
               success: "Success",
-              failed: "Failed",
+              failure: "Failure",
               cancelled: "Cancelled"
             })}
           </StyledSelect>

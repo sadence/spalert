@@ -1,29 +1,36 @@
 const express = require("express");
 const router = express.Router();
+
 const db = require("../db/controller");
+const email_utils = require("../utils/emails");
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  console.log("Entered Route");
   db.allAlerts().then(alerts => {
-    console.log("Entered Callback");
     res.send(alerts);
   });
 });
 
 router.put("/", function(req, res) {
-  console.log(req.body);
   db
     .createNewAlert(req.body.alert)
-    .then(alert => res.send(alert))
+    .then(alert => {
+      res.send(alert);
+      email_utils.newAlertSubmittedEmail(alert);
+    })
     .catch(console.log);
 });
 
 router.post("/:id", function(req, res) {
-  console.log(req.body);
   db
     .updateAlert(req.params.id, req.body.alert)
-    .then(alert => res.send(alert))
+    .then(alert =>{
+      if(req.body.brigade_done){
+        // send email
+        email_utils.alertDoneEmail(alert);
+      }
+      res.send(alert);
+    })
     .catch(console.log);
 });
 
