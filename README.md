@@ -18,6 +18,18 @@ Then, type `docker-compose up` in the root folder.
 You may begin filing a new alert, a new brigade then checking the alert list.
 Go to http://localhost:3000.
 
+### Emails
+
+For email support (alerting admin with emails about new alerts, and users when an alert is taken care of),
+please fill in the environement variables in the `docker-composer.yml`, precisely:
+
+```
+- SENDER_USER=mail
+- SENDER_PASS=pass
+- SENDER_HOST=host
+- ADMIN_MAIL=mail
+```
+
 ## Technical Choices
 
 NodeJS was compulsory in the context of the assignment.

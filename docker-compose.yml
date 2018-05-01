@@ -22,10 +22,10 @@ services:
       environment:
         - NODE_ENV=production
         - PORT=3001
-        - SENDER_USER=mail
-        - SENDER_PASS=pass
-        - SENDER_HOST=host
-        - ADMIN_MAIL=mail
+        - SENDER_USER=
+        - SENDER_PASS=
+        - SENDER_HOST=
+        - ADMIN_MAIL=
       volumes:
         - ./spalert-back:/home/node/app
       ports:
